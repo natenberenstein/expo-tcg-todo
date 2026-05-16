@@ -93,7 +93,7 @@ export default function App() {
               </View>
 
               <View style={styles.heroPanel}>
-                <Text style={styles.heroKicker}>Today&apos;s board</Text>
+                <Text style={styles.heroKicker}>Today's board</Text>
                 <Text style={styles.heroTitle}>Plan scans, grade checks, trades, and shipping in one tactile mobile flow.</Text>
                 <ProgressRail ratio={completionRatio} label="Vault progress" />
               </View>

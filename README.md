@@ -45,6 +45,8 @@ Type-check:
 npm run typecheck
 ```
 
+If `npm install` fails with a DNS error such as `EAI_AGAIN`, the project files are still valid, but your shell cannot reach the npm registry. Retry once network access is available.
+
 ## Project Structure
 
 ```text
