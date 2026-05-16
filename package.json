@@ -8,12 +8,16 @@
     "start": "expo start",
     "ios": "expo start --ios",
     "android": "expo start --android",
+    "api:build": "npm run build --prefix backend",
+    "api:dev": "npm run start:dev --prefix backend",
+    "api:typecheck": "npm run typecheck --prefix backend",
     "web": "expo start --web",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "expo": "~54.0.0",
+    "expo-camera": "~17.0.10",
     "react": "19.1.0",
     "react-native": "0.81.5"
   },

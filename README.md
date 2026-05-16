@@ -1,14 +1,16 @@
 # CardQuest Todo
 
-A small Expo + React Native todo app that demonstrates a TCG-inspired mobile workflow. It uses a collector-themed task board to show how React Native screens, reusable components, local state, animations, TypeScript, and tests fit together.
+A small Expo + React Native todo app that demonstrates a TCG-inspired mobile workflow. It uses a collector-themed task board backed by a local NestJS API so React Native screens, reusable components, API calls, backend mutations, TypeScript, and tests fit together.
 
 ## What This Demonstrates
 
 - Expo app structure with `App.tsx` and `index.ts`.
 - React Native primitives such as `View`, `Text`, `FlatList`, `TextInput`, `Pressable`, and `SafeAreaView`.
 - Reusable UI components under `src/components`.
+- A typed mobile API client under `src/api`.
+- A NestJS backend under `backend`.
 - Shared design tokens under `src/theme`.
-- Pure todo reducer and selector logic under `src/domain`.
+- Pure todo selector logic under `src/domain`.
 - Built-in React Native animation through `Animated`.
 - A dependency-light setup that is easy to inspect.
 - Unit tests for todo domain logic.
@@ -22,6 +24,7 @@ This repo is pinned to the Expo SDK 54 dependency set:
 - Expo `~54.0.0`
 - React `19.1.0`
 - React Native `0.81.5`
+- NestJS `^11.1.6`
 - TypeScript `~5.9.2`
 - Vitest `^3.2.4`
 
@@ -31,13 +34,39 @@ Install dependencies:
 
 ```bash
 npm install
+npm install --prefix backend
 ```
 
-Start the Expo dev server:
+Start the backend in one terminal:
 
 ```bash
-npm run start
+npm run api:dev
 ```
+
+The API listens on `http://localhost:3000/api` by default.
+
+Start the Expo dev server in another terminal with an explicit API URL:
+
+```bash
+EXPO_PUBLIC_API_URL=http://localhost:3000/api npm run start
+```
+
+The mobile app reads `EXPO_PUBLIC_API_URL` at startup. Set it every time you start Expo so the running app points at the correct backend for your target device.
+
+Use the URL that matches where the app is running:
+
+```bash
+# Expo web or iOS Simulator on the same computer
+EXPO_PUBLIC_API_URL=http://localhost:3000/api npm run start
+
+# Android Emulator
+EXPO_PUBLIC_API_URL=http://10.0.2.2:3000/api npm run start
+
+# Physical phone in Expo Go
+EXPO_PUBLIC_API_URL=http://<YOUR_COMPUTER_LAN_IP>:3000/api npm run start
+```
+
+For a physical phone, replace `<YOUR_COMPUTER_LAN_IP>` with the LAN IP of the computer running `npm run api:dev`. The phone and computer must be on the same network, and the backend port `3000` must be reachable.
 
 Then press:
 
@@ -60,6 +89,8 @@ npm run web
 npm run start      # Start Expo
 npm run ios        # Start Expo and open iOS
 npm run android    # Start Expo and open Android
+npm run api:dev    # Start the NestJS API
+npm run api:typecheck # Run backend TypeScript without emitting files
 npm run web        # Start Expo and open web
 npm run test       # Run unit tests
 npm run typecheck  # Run TypeScript without emitting files
@@ -76,8 +107,14 @@ If `npm install` fails with an `ERESOLVE` peer dependency conflict, confirm that
 ```text
 .
 |-- App.tsx
+|-- backend
+|   `-- src
+|       |-- scans
+|       `-- todos
 |-- index.ts
 |-- src
+|   |-- api
+|   |   `-- cardquest.ts
 |   |-- components
 |   |   |-- Pill.tsx
 |   |   |-- ProgressRail.tsx
@@ -95,15 +132,21 @@ If `npm install` fails with an `ERESOLVE` peer dependency conflict, confirm that
 
 ## How To Read The Code
 
-Start with `App.tsx`. It shows the main mobile screen, state management, filtering, task creation, and list rendering.
+Start with `App.tsx`. It shows the main mobile screen, API-backed state management, filtering, task creation, scan creation, and list rendering.
 
 Then read:
 
-- `src/domain/todos.ts` for reducer and selector logic.
+- `src/api/cardquest.ts` for the mobile fetch client.
+- `backend/src/todos` and `backend/src/scans` for API endpoints.
+- `src/domain/todos.ts` for todo types and selector logic.
 - `src/theme/tokens.ts` for color, spacing, radius, and lane tokens.
 - `src/components/Pill.tsx` for the compact status and filter control.
 - `src/components/TodoRow.tsx` for a reusable task row.
 - `src/components/ProgressRail.tsx` for a small animated progress component.
+
+## Concept Notes
+
+- [Competitor Analysis](docs/tcg-app-concept/competitor-analysis.md) captures the competitive landscape for the larger TCG app concept, including marketplaces, scanner apps, portfolio trackers, grading/vaulting platforms, and live-commerce competitors.
 
 ## Why This Is Dependency-Light
 

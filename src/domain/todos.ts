@@ -5,11 +5,11 @@ export type Todo = {
   title: string;
   lane: TaskLane;
   done: boolean;
-  createdAt: number;
+  createdAt: string;
 };
 
 export type TodoAction =
-  | { type: 'add'; title: string; lane: TaskLane; id?: string; now?: number }
+  | { type: 'add'; title: string; lane: TaskLane; id?: string; now?: string }
   | { type: 'toggle'; id: string }
   | { type: 'remove'; id: string }
   | { type: 'clear-completed' };
@@ -20,21 +20,21 @@ export const initialTodos: Todo[] = [
     title: 'Scan binder page for missing 151 cards',
     lane: 'scan',
     done: false,
-    createdAt: 1,
+    createdAt: '2026-05-16T09:00:00.000Z',
   },
   {
     id: 'seed-2',
     title: 'Review grade ROI for top three raw cards',
     lane: 'grade',
     done: false,
-    createdAt: 2,
+    createdAt: '2026-05-16T09:05:00.000Z',
   },
   {
     id: 'seed-3',
     title: 'Prepare shipping checklist for accepted offers',
     lane: 'ship',
     done: true,
-    createdAt: 3,
+    createdAt: '2026-05-16T09:10:00.000Z',
   },
 ];
 
@@ -53,7 +53,7 @@ export function todoReducer(todos: Todo[], action: TodoAction): Todo[] {
           title,
           lane: action.lane,
           done: false,
-          createdAt: action.now ?? Date.now(),
+          createdAt: action.now ?? new Date().toISOString(),
         },
         ...todos,
       ];
