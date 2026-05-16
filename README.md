@@ -15,6 +15,8 @@ A small Expo + React Native todo app that demonstrates the mobile stack we discu
 
 ## Getting Started
 
+Use Node.js 20.19 or newer. This repo is pinned to the Expo SDK 55 dependency set: Expo `~55.0.0`, React `19.2.0`, and React Native `0.83.0`.
+
 Install dependencies:
 
 ```bash
@@ -47,6 +49,8 @@ npm run typecheck
 
 If `npm install` fails with a DNS error such as `EAI_AGAIN`, the project files are still valid, but your shell cannot reach the npm registry. Retry once network access is available.
 
+If `npm install` fails with an `ERESOLVE` peer dependency conflict, confirm that `package.json` uses the Expo SDK 55-compatible React and React Native versions listed above.
+
 ## Project Structure
 
 ```text
@@ -64,6 +68,7 @@ If `npm install` fails with a DNS error such as `EAI_AGAIN`, the project files a
 │   └── theme
 │       └── tokens.ts
 ├── app.json
+├── package-lock.json
 ├── package.json
 └── tsconfig.json
 ```

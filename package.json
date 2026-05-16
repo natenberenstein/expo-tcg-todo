@@ -14,12 +14,15 @@
   },
   "dependencies": {
     "expo": "~55.0.0",
-    "react": "19.1.0",
-    "react-native": "0.82.0"
+    "react": "19.2.0",
+    "react-native": "0.83.0"
   },
   "devDependencies": {
-    "@types/react": "~19.1.10",
+    "@types/react": "~19.2.0",
     "typescript": "~5.9.2",
     "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20.19.0"
   }
 }
