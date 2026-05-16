@@ -1,21 +1,31 @@
 # CardQuest Todo
 
-A small Expo + React Native todo app that demonstrates the mobile stack we discussed for the TCG collector product. It uses a collector-themed task board to show how React Native screens, reusable components, local state, animations, TypeScript, and tests fit together.
+A small Expo + React Native todo app that demonstrates a TCG-inspired mobile workflow. It uses a collector-themed task board to show how React Native screens, reusable components, local state, animations, TypeScript, and tests fit together.
 
 ## What This Demonstrates
 
 - Expo app structure with `App.tsx` and `index.ts`.
-- React Native primitives: `View`, `Text`, `FlatList`, `TextInput`, `Pressable`, `SafeAreaView`.
-- A simple component system under `src/components`.
+- React Native primitives such as `View`, `Text`, `FlatList`, `TextInput`, `Pressable`, and `SafeAreaView`.
+- Reusable UI components under `src/components`.
 - Shared design tokens under `src/theme`.
-- Pure domain logic under `src/domain`.
+- Pure todo reducer and selector logic under `src/domain`.
 - Built-in React Native animation through `Animated`.
 - A dependency-light setup that is easy to inspect.
-- Unit tests for todo reducer logic.
+- Unit tests for todo domain logic.
+
+## Current Stack
+
+Use Node.js 20.19 or newer.
+
+This repo is pinned to the Expo SDK 54 dependency set:
+
+- Expo `~54.0.0`
+- React `19.1.0`
+- React Native `0.81.5`
+- TypeScript `~5.9.2`
+- Vitest `^3.2.4`
 
 ## Getting Started
-
-Use Node.js 20.19 or newer. This repo is pinned to the Expo SDK 55 dependency set: Expo `~55.0.0`, React `19.2.0`, and React Native `0.83.0`.
 
 Install dependencies:
 
@@ -33,44 +43,54 @@ Then press:
 
 - `i` to open iOS Simulator.
 - `a` to open Android Emulator.
+- `w` to open the web build.
 - Scan the QR code with Expo Go if you prefer a physical device.
 
-Run tests:
+You can also launch a target directly:
 
 ```bash
-npm run test
+npm run ios
+npm run android
+npm run web
 ```
 
-Type-check:
+## Scripts
 
 ```bash
-npm run typecheck
+npm run start      # Start Expo
+npm run ios        # Start Expo and open iOS
+npm run android    # Start Expo and open Android
+npm run web        # Start Expo and open web
+npm run test       # Run unit tests
+npm run typecheck  # Run TypeScript without emitting files
 ```
+
+## Troubleshooting
 
 If `npm install` fails with a DNS error such as `EAI_AGAIN`, the project files are still valid, but your shell cannot reach the npm registry. Retry once network access is available.
 
-If `npm install` fails with an `ERESOLVE` peer dependency conflict, confirm that `package.json` uses the Expo SDK 55-compatible React and React Native versions listed above.
+If `npm install` fails with an `ERESOLVE` peer dependency conflict, confirm that `package.json` uses the Expo SDK 54-compatible React and React Native versions listed above.
 
 ## Project Structure
 
 ```text
 .
-├── App.tsx
-├── index.ts
-├── src
-│   ├── components
-│   │   ├── Pill.tsx
-│   │   ├── ProgressRail.tsx
-│   │   └── TodoRow.tsx
-│   ├── domain
-│   │   ├── todos.test.ts
-│   │   └── todos.ts
-│   └── theme
-│       └── tokens.ts
-├── app.json
-├── package-lock.json
-├── package.json
-└── tsconfig.json
+|-- App.tsx
+|-- index.ts
+|-- src
+|   |-- components
+|   |   |-- Pill.tsx
+|   |   |-- ProgressRail.tsx
+|   |   `-- TodoRow.tsx
+|   |-- domain
+|   |   |-- todos.test.ts
+|   |   `-- todos.ts
+|   `-- theme
+|       `-- tokens.ts
+|-- app.json
+|-- package-lock.json
+|-- package.json
+`-- tsconfig.json
 ```
 
 ## How To Read The Code
@@ -81,6 +101,7 @@ Then read:
 
 - `src/domain/todos.ts` for reducer and selector logic.
 - `src/theme/tokens.ts` for color, spacing, radius, and lane tokens.
+- `src/components/Pill.tsx` for the compact status and filter control.
 - `src/components/TodoRow.tsx` for a reusable task row.
 - `src/components/ProgressRail.tsx` for a small animated progress component.
 
